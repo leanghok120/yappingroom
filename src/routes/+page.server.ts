@@ -1,5 +1,13 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import * as auth from '$lib/server/auth';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async (event) => {
+	if (!event.locals.user) {
+		return redirect(301, '/login');
+	}
+	return {};
+};
 
 export const actions: Actions = {
 	logout: async (event) => {
