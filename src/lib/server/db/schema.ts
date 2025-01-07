@@ -1,5 +1,13 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
+export const message = pgTable('message', {
+	id: text('id').primaryKey(),
+	content: text('content').notNull(),
+	userName: text('user_name')
+		.notNull()
+		.references(() => user.username)
+});
+
 export const user = pgTable('user', {
 	id: text('id').primaryKey(),
 	username: text('username').notNull().unique(),
