@@ -40,12 +40,15 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const content = formData.get('content') as string;
 
-		await db.insert(message).values({
-			id: uuid(),
-			content,
-			userName: locals.user.username,
-			createdAt: new Date()
-		});
+		if (content.trim()) {
+			await db.insert(message).values({
+				id: uuid(),
+				content,
+				userName: locals.user.username,
+				createdAt: new Date()
+			});
+		}
+
 		return { success: true };
 	}
 };
