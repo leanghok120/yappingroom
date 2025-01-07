@@ -5,7 +5,8 @@ export const message = pgTable('message', {
 	content: text('content').notNull(),
 	userName: text('user_name')
 		.notNull()
-		.references(() => user.username)
+		.references(() => user.username),
+	createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).notNull()
 });
 
 export const user = pgTable('user', {
