@@ -11,13 +11,14 @@ export const load: PageServerLoad = async (event) => {
 		return redirect(301, '/login');
 	}
 
+	const user = event.locals.user;
 	const messages = await db.query.message.findMany({
 		limit: 10,
 		orderBy: [desc(message.createdAt)]
 	});
 	messages.reverse();
 
-	return { messages };
+	return { messages, user };
 };
 
 export const actions: Actions = {
